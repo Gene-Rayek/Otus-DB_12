@@ -1,4 +1,4 @@
-# ** Транзакции, MVCC, ACID**
+## Транзакции, MVCC, ACID 
 
 
 ## **Задание:**
@@ -103,7 +103,8 @@ CALL sp_create_purchase(
 SELECT * FROM purchases;
 ```
 
-<img width="925" height="209" alt="image" src="https://github.com/user-attachments/assets/efc0213f-04ec-4a50-986c-9e471d58eb15" />
+<img width="902" height="232" alt="image" src="https://github.com/user-attachments/assets/8f0c1e42-5f94-4933-a146-3f1f95ddc524" />
+
 
  
 ##  2. Загрузить данные из приложенных в материалах CSV. Реализовать следующим путем: LOAD DATA
@@ -156,20 +157,27 @@ LINES TERMINATED BY '\r\n'
 ```
 
 ## Проверим загруженные данные:
-
-SELECT * FROM customers_import;
+```
+TRUNCATE TABLE customers_import;
+```
 
 После этого переносим данные в основную таблицу customers:
 ```
-INSERT INTO customers (name, email, phone, city)
-SELECT
-    SUBSTRING_INDEX(email, '@', 1) AS name,
-    email,
-    NULL AS phone,
-    NULLIF(city, '\\N') AS city
-FROM customers_import
-WHERE email IS NOT NULL;
+TRUNCATE TABLE customers_import;
 ```
+```
+LOAD DATA LOCAL INFILE '/tmp/users-39289-1025cc.csv'
+INTO TABLE customers_import
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+(email, city);
+```
+```
+SELECT * FROM customers_import;
+```
+<img width="483" height="197" alt="image" src="https://github.com/user-attachments/assets/2ddc679b-768d-4ff0-a8b2-a1af9472cac1" />
+
 
 Проверка результата:
 ```
@@ -180,11 +188,12 @@ SELECT * FROM customers;
 
 ## 3. Задание со ⭐️: загрузить используя mysqlimport
 
-Для выполнения дополнительного задания тот же CSV-файл был подготовлен для импорта через mysqlimport.
+Для выполнения дополнительного задания тот же CSV-файл был подготовлен для импорта через `mysqlimport`.
 
-Так как mysqlimport ожидает имя файла, совпадающее с именем таблицы, файл был переименован:
-```
-cp /tmp/users-39289-1025cc.csv /tmp/customers_import.csv
+Так как `mysqlimport` ожидает имя файла, совпадающее с именем таблицы, файл был переименован:
+
+```bash
+cp /home/user/users-39289-1025cc.csv /home/user/customers_import.csv
 ```
 
 
