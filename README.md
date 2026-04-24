@@ -205,7 +205,7 @@ mysqlimport \
   otus /home/user/customers_import.csv
 ```
 
-результата:
+результат:
 
 <img width="884" height="33" alt="image" src="https://github.com/user-attachments/assets/38f46faa-f0ae-4d9f-bde1-faf51bae2d83" />
 
