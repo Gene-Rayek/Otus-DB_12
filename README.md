@@ -163,9 +163,6 @@ TRUNCATE TABLE customers_import;
 
 После этого переносим данные в основную таблицу customers:
 ```
-TRUNCATE TABLE customers_import;
-```
-```
 LOAD DATA LOCAL INFILE '/tmp/users-39289-1025cc.csv'
 INTO TABLE customers_import
 FIELDS TERMINATED BY ','
@@ -200,7 +197,6 @@ cp /home/user/users-39289-1025cc.csv /home/user/customers_import.csv
 После этого импорт выполняется командой:
 ```
 mysqlimport \
-mysqlimport \
   --local \
   --default-character-set=utf8mb4 \
   -u root -p12345 \
@@ -225,5 +221,4 @@ mysqlimport \
 
 
 
-```sql
-SELECT * FROM customers WHERE email = 'alexey@example.com';
+
